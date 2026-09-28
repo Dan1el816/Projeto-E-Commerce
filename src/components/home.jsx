@@ -11,7 +11,7 @@ function Home() {
           <Link to="/login">Entrar</Link>
         </nav>
       </header>
-
+ 
       <main className="hero">
         <div className="hero-content">
           <p className="eyebrow">Sua próxima descoberta</p>

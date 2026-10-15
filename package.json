@@ -13,11 +13,14 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "server": "node server.js"
+    "server": "node src/server.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.3",
+    "dotenv": "^18.0.8",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
+    "mysql2": "^3.24.6",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.4"

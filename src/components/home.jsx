@@ -9,6 +9,7 @@ function Home() {
         <nav className="navigation" aria-label="Navegação principal">
           <Link to="/">Início</Link>
           <Link to="/login">Entrar</Link>
+          <Link to="/cadastro">Criar conta</Link>
         </nav>
       </header>
  
@@ -19,7 +20,10 @@ function Home() {
           <p className="hero-text">
             Encontre produtos pensados para deixar sua rotina mais simples, bonita e do seu jeito.
           </p>
-          <Link className="button" to="/login">Começar agora</Link>
+          <div className="hero-actions">
+            <Link className="button" to="/login">Começar agora</Link>
+            <Link className="button button-secondary" to="/cadastro">Criar conta</Link>
+          </div>
         </div>
         <div className="hero-shape" aria-hidden="true"></div>
       </main>

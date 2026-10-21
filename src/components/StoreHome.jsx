@@ -1,4 +1,53 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { getProductImage } from "../lib/productPresentation";
+
+const currencyFormatter = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
+
 function StoreHome() {
+  const [products, setProducts] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [productError, setProductError] = React.useState("");
+
+  React.useEffect(() => {
+    let isMounted = true;
+
+    async function loadProducts() {
+      try {
+        const response = await fetch("/api/produtos");
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || "Não foi possível carregar os produtos.");
+        }
+
+        if (!Array.isArray(result.products)) {
+          throw new Error("A resposta do servidor não contém a lista de produtos.");
+        }
+
+        if (isMounted) {
+          setProducts(result.products);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setProductError(error.message || "Não foi possível conectar ao servidor.");
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadProducts();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <div className="store-home">
       <div className="store-announcement">
@@ -61,9 +110,9 @@ function StoreHome() {
             <a className="store-text-link" href="#novidades">Ver tudo <span aria-hidden="true">→</span></a>
           </div>
           <div className="store-category-grid">
-            <a className="store-category store-category-fashion" href="#novidades">
+            <Link className="store-category store-category-fashion" to="/categoria/moda-acessorios">
               <span>01 / vestir</span><strong>Moda & acessórios</strong><i aria-hidden="true">↗</i>
-            </a>
+            </Link>
             <a className="store-category store-category-home" href="#novidades">
               <span>02 / morar</span><strong>Casa & decoração</strong><i aria-hidden="true">↗</i>
             </a>
@@ -79,49 +128,40 @@ function StoreHome() {
               <p className="store-kicker">Acabaram de chegar</p>
               <h2>Novidades que encantam</h2>
             </div>
-            <a className="store-text-link" href="#categorias">Ver coleção <span aria-hidden="true">→</span></a>
+            <Link className="store-text-link" to="/categoria/moda-acessorios">Ver coleção <span aria-hidden="true">→</span></Link>
           </div>
           <div className="store-product-grid">
-            <article className="store-product-card">
-              <a className="store-product-image" href="#novidades">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=85" alt="Tênis esportivo vermelho" />
-                <span className="store-product-tag">Novidade</span>
-              </a>
-              <div className="store-product-info">
-                <div><h3>Tênis movimento</h3><p>Conforto para ir mais longe</p></div>
-                <strong>R$ 289,90</strong>
-              </div>
-            </article>
-            <article className="store-product-card">
-              <a className="store-product-image store-product-sand" href="#novidades">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=85" alt="Relógio minimalista com pulseira escura" />
-                <span className="store-product-tag">Favorito</span>
-              </a>
-              <div className="store-product-info">
-                <div><h3>Relógio essencial</h3><p>Design que combina com tudo</p></div>
-                <strong>R$ 349,00</strong>
-              </div>
-            </article>
-            <article className="store-product-card">
-              <a className="store-product-image store-product-rose" href="#novidades">
-                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=85" alt="Frasco de perfume em fundo delicado" />
-                <span className="store-product-tag">Feito para presentear</span>
-              </a>
-              <div className="store-product-info">
-                <div><h3>Perfume momentos</h3><p>Uma fragrância para lembrar</p></div>
-                <strong>R$ 179,90</strong>
-              </div>
-            </article>
-            <article className="store-product-card">
-              <a className="store-product-image store-product-sage" href="#novidades">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=85" alt="Fones de ouvido em destaque" />
-                <span className="store-product-tag">Últimas peças</span>
-              </a>
-              <div className="store-product-info">
-                <div><h3>Fone som leve</h3><p>Seu mundo, sua trilha sonora</p></div>
-                <strong>R$ 229,90</strong>
-              </div>
-            </article>
+            {productError && (
+              <p className="store-product-message" role="alert">{productError}</p>
+            )}
+            {isLoading && (
+              <p className="store-product-message" role="status">Carregando produtos...</p>
+            )}
+            {!isLoading && !productError && products.length === 0 && (
+              <p className="store-product-message" role="status">Nenhum produto foi encontrado.</p>
+            )}
+            {products.map((product) => (
+              <article className="store-product-card" key={product.id}>
+                <Link
+                  className="store-product-image"
+                  to={`/produtos/${product.id}`}
+                  aria-label={`Ver detalhes de ${product.nome}`}
+                >
+                  <img
+                    src={`https://images.unsplash.com/${getProductImage(product.nome, product.descricao)}?auto=format&fit=crop&w=800&q=85`}
+                    alt={product.nome}
+                    loading="lazy"
+                  />
+                </Link>
+                <div className="store-product-info">
+                  <div>
+                    <h3><Link className="store-product-title" to={`/produtos/${product.id}`}>{product.nome}</Link></h3>
+                    <p>{product.descricao}</p>
+                  </div>
+                  <strong>{currencyFormatter.format(Number(product.preco))}</strong>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 

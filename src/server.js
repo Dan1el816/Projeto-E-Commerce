@@ -50,6 +50,61 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "dist"))); // ou "build"
 
 // 2. SUAS ROTAS DE API (retornam dados JSON em vez de HTML)
+app.get("/api/produtos", async (req, res) => {
+  try {
+    const [products] = await pool.execute(
+      "SELECT id, nome, descricao, preco, estoque FROM produtos ORDER BY nome",
+    );
+
+    return res.json({ products });
+  } catch (error) {
+    console.error("Erro ao buscar produtos:", error);
+    return res.status(500).json({ message: "Não foi possível carregar os produtos." });
+  }
+});
+
+app.get("/api/produtos/camisa-aurora", async (req, res) => {
+  try {
+    const [products] = await pool.execute(
+      "SELECT id, nome, descricao, preco, estoque FROM produtos WHERE nome = ? LIMIT 1",
+      ["Camisa Aurora"],
+    );
+
+    if (!products.length) {
+      return res.status(404).json({ message: "Camisa Aurora não encontrada." });
+    }
+
+    return res.json({ product: products[0] });
+  } catch (error) {
+    console.error("Erro ao buscar Camisa Aurora:", error);
+    return res.status(500).json({ message: "Não foi possível carregar este produto." });
+  }
+});
+
+app.get("/api/produtos/:id", async (req, res) => {
+  const { id } = req.params;
+
+  if (!/^\d+$/.test(id)) {
+    return res.status(400).json({ message: "Informe um ID de produto válido." });
+  }
+
+  try {
+    const [products] = await pool.execute(
+      "SELECT id, nome, descricao, preco, estoque FROM produtos WHERE id = ? LIMIT 1",
+      [id],
+    );
+
+    if (!products.length) {
+      return res.status(404).json({ message: "Produto não encontrado." });
+    }
+
+    return res.json({ product: products[0] });
+  } catch (error) {
+    console.error(`Erro ao buscar produto ${id}:`, error);
+    return res.status(500).json({ message: "Não foi possível carregar este produto." });
+  }
+});
+
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body ?? {};
 

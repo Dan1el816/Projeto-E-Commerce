@@ -132,8 +132,11 @@ h1 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8re
 .store-product-tag { position: absolute; top: 13px; left: 13px; padding: 7px 10px; color: var(--ink); background: #fff; font-size: .65rem; font-weight: 700; }
 .store-product-info { display: flex; align-items: start; justify-content: space-between; gap: 8px; padding: 15px 1px; }
 .store-product-info h3 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: .98rem; }
+.store-product-title { color: inherit; text-decoration: none; }
+.store-product-title:hover { color: var(--accent-dark); }
 .store-product-info p { margin: 5px 0 0; color: var(--muted); font-size: .74rem; }
 .store-product-info > strong { font-size: .82rem; white-space: nowrap; }
+.store-product-message { grid-column: 1 / -1; margin: 0; padding: 24px; color: var(--muted); background: #fff; text-align: center; }
 .store-about { position: relative; display: grid; justify-items: center; padding: 80px 24px 90px; background: #e8ede4; text-align: center; }
 .store-about-symbol { position: absolute; top: 45px; right: max(8%, calc((100vw - 1100px) / 2)); color: #c9d9c1; font-size: 3.5rem; }
 .store-about .store-kicker { margin-bottom: 14px; }
@@ -142,6 +145,74 @@ h1 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8re
 .store-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1320px; margin: 0 auto; padding: 25px 48px; }
 .store-footer .store-brand { font-size: 1.45rem; }
 .store-footer p, .store-footer > span { color: var(--muted); font-size: .78rem; }
+
+.fashion-page { background: #fbf8f4; }
+.fashion-hero { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 7%; max-width: 1320px; margin: 0 auto; padding: 28px 48px 78px; }
+.fashion-hero-copy { padding: 20px 0; }
+.fashion-breadcrumb { display: flex; gap: 10px; margin-bottom: 50px; color: var(--muted); font-size: .78rem; }
+.fashion-breadcrumb a { color: inherit; text-decoration: none; }
+.fashion-breadcrumb a:hover { color: var(--accent-dark); }
+.fashion-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(3.4rem, 6vw, 6rem); letter-spacing: -.06em; line-height: .98; }
+.fashion-hero-copy > p:not(.store-kicker) { max-width: 440px; margin: 24px 0 28px; color: var(--muted); line-height: 1.75; }
+.fashion-hero-image { position: relative; height: 490px; }
+.fashion-hero-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 43%; }
+.fashion-image-note { position: absolute; right: -18px; bottom: 28px; padding: 17px 22px; color: var(--ink); background: #e9c46a; font-family: 'Space Grotesk', sans-serif; font-size: .95rem; font-weight: 600; line-height: 1.4; transform: rotate(2deg); }
+.fashion-collection { max-width: 1320px; margin: 0 auto; padding: 20px 48px 95px; }
+.fashion-collection-intro { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.fashion-collection-intro .store-kicker { margin-bottom: 10px; }
+.fashion-collection-intro h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 3.2vw, 3rem); letter-spacing: -.045em; }
+.fashion-collection-intro p:not(.store-kicker) { margin: 10px 0 0; color: var(--muted); font-size: .9rem; }
+.fashion-item-count { padding-bottom: 5px; color: var(--muted); font-size: .8rem; }
+.fashion-category-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 30px; }
+.fashion-chip { padding: 9px 16px; border: 1px solid var(--line); color: var(--muted); font-size: .78rem; }
+.fashion-chip-active { border-color: var(--ink); color: #fff; background: var(--ink); }
+.fashion-product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 38px 22px; }
+.fashion-product-image { position: relative; height: 390px; overflow: hidden; background: #eee8df; }
+.fashion-product-image { display: block; }
+.fashion-product-image img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.fashion-product-card:hover .fashion-product-image img { transform: scale(1.035); }
+.fashion-product-info { display: flex; align-items: start; justify-content: space-between; gap: 8px; padding: 15px 1px 12px; }
+.fashion-product-info h3 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; }
+.fashion-product-title { color: inherit; text-decoration: none; }
+.fashion-product-title:hover { color: var(--accent-dark); }
+.fashion-product-info p { margin: 5px 0 0; color: var(--muted); font-size: .76rem; }
+.fashion-product-info > strong { font-size: .84rem; white-space: nowrap; }
+.fashion-product-message { grid-column: 1 / -1; margin: 0; padding: 24px; color: var(--muted); background: #fff; text-align: center; }
+.fashion-product-button { display: block; width: 100%; padding: 10px; border: 1px solid var(--line); color: var(--ink); background: transparent; font: inherit; font-size: .78rem; text-align: center; text-decoration: none; transition: color .2s ease, background .2s ease, border-color .2s ease; }
+.fashion-product-button:hover { border-color: var(--ink); color: #fff; background: var(--ink); }
+.fashion-note { display: grid; justify-items: center; gap: 18px; padding: 65px 24px 75px; background: #e8ede4; text-align: center; }
+.fashion-note > span { color: var(--accent); font-size: 1.8rem; }
+.fashion-note p { margin: 0; color: var(--muted); line-height: 1.7; }
+.fashion-note p strong { color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; }
+
+.product-page { min-height: 100vh; background: #fbf8f4; }
+.product-detail { max-width: 1320px; min-height: 68vh; margin: 0 auto; padding: 24px 48px 75px; }
+.product-breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; color: var(--muted); font-size: .78rem; }
+.product-breadcrumb a { color: inherit; text-decoration: none; }
+.product-breadcrumb a:hover { color: var(--accent-dark); }
+.product-showcase { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: clamp(40px, 8vw, 110px); }
+.product-showcase-image { position: relative; min-height: 600px; overflow: hidden; background: #eee8df; }
+.product-showcase-image img { display: block; width: 100%; height: 600px; object-fit: cover; }
+.product-image-label { position: absolute; bottom: 20px; left: 20px; padding: 10px 13px; color: var(--ink); background: #fff; font-size: .65rem; font-weight: 700; letter-spacing: .12em; }
+.product-showcase-copy { max-width: 500px; padding: 30px 0; }
+.product-showcase-copy .store-kicker { margin-bottom: 24px; }
+.product-reference { margin: 0 0 11px; color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .12em; }
+.product-showcase-copy h1, .product-state h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8rem, 5vw, 4.8rem); letter-spacing: -.06em; line-height: 1; }
+.product-description { max-width: 420px; margin: 22px 0 26px; color: var(--muted); font-size: 1rem; line-height: 1.8; }
+.product-price { padding: 22px 0 12px; border-top: 1px solid var(--line); font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; font-weight: 600; }
+.product-stock { display: flex; align-items: center; gap: 8px; margin: 0 0 24px; color: var(--muted); font-size: .8rem; }
+.product-stock span { color: var(--accent); }
+.product-buy-button { width: 100%; padding: 16px 20px; border: 0; color: #fff; background: var(--ink); font: inherit; font-weight: 700; }
+.product-buy-button:disabled { cursor: not-allowed; opacity: .76; }
+.product-buy-note { margin: 12px 0 28px; color: var(--muted); font-size: .74rem; text-align: center; }
+.product-promise { display: flex; align-items: start; gap: 13px; padding: 18px; background: #e8ede4; }
+.product-promise > span { color: var(--accent-dark); font-size: 1.2rem; }
+.product-promise p { margin: 0; color: var(--muted); font-size: .78rem; line-height: 1.6; }
+.product-promise strong { color: var(--ink); }
+.product-back-link { margin-top: 45px; }
+.product-state { display: grid; justify-items: center; gap: 16px; min-height: 50vh; align-content: center; text-align: center; }
+.product-state h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+.product-state > p:not(.store-kicker) { max-width: 480px; margin: 0 0 8px; color: var(--muted); line-height: 1.7; }
 
 @media (max-width: 720px) {
   .site-header { padding: 22px 20px; }
@@ -161,10 +232,26 @@ h1 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8re
   .store-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .store-product-image { height: 360px; }
   .store-footer { padding-right: 28px; padding-left: 28px; }
+  .fashion-hero { gap: 5%; padding: 25px 28px 65px; }
+  .fashion-hero-image { height: 410px; }
+  .fashion-collection { padding-right: 28px; padding-left: 28px; }
+  .fashion-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fashion-product-image { height: 360px; }
+  .fashion-image-note { right: -10px; }
+  .product-detail { padding-right: 28px; padding-left: 28px; }
+  .product-showcase { gap: 34px; }
+  .product-showcase-image, .product-showcase-image img { min-height: 450px; height: 450px; }
 }
 
 @media (max-width: 600px) {
-  .store-announcement { font-size: .68rem; }
+  .store-announcement { font-size: .68rem;     .product-detail { padding: 20px 20px 60px; }
+    .product-breadcrumb { margin-bottom: 22px; }
+    .product-showcase { grid-template-columns: 1fr; gap: 20px; }
+    .product-showcase-image, .product-showcase-image img { min-height: 360px; height: 360px; }
+    .product-showcase-copy { padding: 8px 0; }
+    .product-showcase-copy h1 { font-size: clamp(2.7rem, 12vw, 4rem); }
+    .product-back-link { margin-top: 30px; }
+  }
   .store-header { padding: 17px 20px; }
   .store-brand { font-size: 1.55rem; }
   .store-header-actions { gap: 10px; }
@@ -193,4 +280,20 @@ h1 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8re
   .store-about-symbol { top: 20px; right: 20px; font-size: 2.6rem; }
   .store-about h2 { font-size: 2.5rem; }
   .store-footer { align-items: start; flex-direction: column; gap: 5px; padding: 22px 20px; }
+  .fashion-hero { grid-template-columns: 1fr; gap: 22px; padding: 20px 20px 55px; }
+  .fashion-breadcrumb { margin-bottom: 32px; }
+  .fashion-hero h1 { font-size: clamp(3.2rem, 12vw, 4.5rem); }
+  .fashion-hero-copy > p:not(.store-kicker) { margin: 18px 0 22px; font-size: .94rem; }
+  .fashion-hero-image { height: 340px; margin: 0 8px; }
+  .fashion-image-note { right: -8px; bottom: 16px; padding: 13px 16px; font-size: .83rem; }
+  .fashion-collection { padding: 15px 20px 65px; }
+  .fashion-collection-intro { align-items: start; flex-direction: column; gap: 12px; }
+  .fashion-collection-intro h2 { font-size: 2rem; }
+  .fashion-category-chips { gap: 7px; margin: 22px 0; }
+  .fashion-chip { padding: 8px 11px; font-size: .72rem; }
+  .fashion-product-grid { gap: 24px 12px; }
+  .fashion-product-image { height: 250px; }
+  .fashion-product-info { flex-direction: column; }
+  .fashion-note { padding: 55px 20px; }
+  .fashion-note p strong { font-size: 1.18rem; }
 }

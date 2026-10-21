@@ -24,7 +24,7 @@ function Login() {
       if (!response.ok) {
         setError(result.message || "Não foi possível entrar.");
       } else {
-        navigate("/");
+        navigate("/home");
       }
     } catch {
       setError("Não foi possível conectar ao servidor. Tente novamente.");

@@ -2,7 +2,7 @@
 
 Shoply é um projeto de e-commerce em desenvolvimento. A aplicação reúne uma interface de loja responsiva, páginas de entrada e cadastro de usuários e uma API em Express conectada a MySQL.
 
-> **Estado atual:** a página da loja e seus produtos são demonstrações estáticas. A API já permite cadastrar usuários e verificar credenciais de login, mas catálogo, busca, sacola, pedidos e sessão de usuário ainda não estão implementados.
+> **Estado atual:** a página de moda carrega os produtos da tabela `produtos` via API. A vitrine da página inicial continua estática; busca, sacola, pedidos e sessão de usuário ainda não estão implementados.
 
 ## Conteúdo
 
@@ -133,14 +133,42 @@ Depois, abra `http://localhost:3000`. O servidor usa o conteúdo de `dist/`, por
 | `/` | Página inicial | Apresentação do Shoply e links para entrar ou criar uma conta |
 | `/cadastro` | Cadastro | Formulário de criação de conta conectado à API |
 | `/login` | Login | Formulário para verificar as credenciais pela API |
-| `/home` | Loja | Vitrine visual com categorias e produtos estáticos |
+| `/home` | Loja | Vitrine com categorias e produtos carregados do banco de dados |
+| `/categoria/moda-acessorios` | Moda & acessórios | Vitrine responsiva com produtos carregados do banco de dados |
+| `/produtos/:id` | Detalhes do produto | Página de apresentação do produto carregado por ID pela API; compra ainda não implementada |
 | `/dashboard` | Dashboard | Página de demonstração existente no projeto |
 
-Após um cadastro bem-sucedido, a aplicação direciona o usuário para `/home`. A vitrine não consulta produtos do banco de dados; os links e ações de busca e sacola são apenas elementos visuais neste estágio.
+Após um cadastro bem-sucedido, a aplicação direciona o usuário para `/home`. A vitrine e a categoria “Moda & acessórios” consultam os produtos da tabela `produtos`; as duas levam à página de detalhes do produto. Busca, sacola, filtros e compra ainda não têm comportamento implementado.
 
 ## API
 
 As rotas recebem e retornam JSON.
+
+### `GET /api/produtos`
+
+Retorna todos os produtos, ordenados pelo nome, com os campos `id`, `nome`, `descricao`, `preco` e `estoque`:
+
+```json
+{
+  "products": [
+    {
+      "id": 1,
+      "nome": "Camisa Aurora",
+      "descricao": "Camisa de algodão",
+      "preco": "129.90",
+      "estoque": 10
+    }
+  ]
+}
+```
+
+### `GET /api/produtos/:id`
+
+Retorna um produto pelo ID, com os mesmos campos da listagem. Retorna HTTP `400` para um ID inválido, `404` se o produto não existir e `500` em caso de erro no banco.
+
+### `GET /api/produtos/camisa-aurora`
+
+Rota de compatibilidade que busca a “Camisa Aurora” e retorna `id`, `nome`, `descricao`, `preco` e `estoque`.
 
 ### `POST /api/cadastro`
 
@@ -186,7 +214,7 @@ Corpo:
 
 Credenciais inválidas retornam HTTP `401`. A verificação compara a senha informada com o hash salvo no banco.
 
-> **Importante:** o login ainda não cria uma sessão persistente. Após a validação bem-sucedida, a interface volta para `/`. Não há proteção de rotas nem estado de autenticação compartilhado entre páginas.
+> **Importante:** o login ainda não cria uma sessão persistente. Após a validação bem-sucedida, a interface direciona para `/home`. Não há proteção de rotas nem estado de autenticação compartilhado entre páginas.
 
 ## Banco de dados
 
@@ -234,6 +262,6 @@ node src/lib/test-db.js
 ## Observações
 
 - As imagens da vitrine são carregadas de `images.unsplash.com` e precisam de acesso à internet.
-- Os dados de produtos, preços e categorias mostrados na página da loja são exemplos estáticos, não representam o conteúdo do banco.
+- As vitrines carregam os campos de produto disponíveis na tabela `produtos`. Como essa tabela não contém um campo de imagem, as páginas usam imagens ilustrativas escolhidas pelo nome e pela descrição; as categorias de filtro ainda são apenas visuais.
 - O projeto ainda não possui uma suíte de testes automatizados configurada.
 - Nunca compartilhe o arquivo `.env` nem envie credenciais reais ao repositório.
